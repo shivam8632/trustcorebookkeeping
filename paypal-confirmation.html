@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal Confirmation - Trustcore Bookkeeping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .confirmation-card {
+            background: var(--bg-card);
+            border: var(--border-glass);
+            border-radius: var(--border-radius);
+            padding: 3rem 2.5rem;
+            max-width: 760px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+
+        .confirmation-card h1 {
+            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3vw, 3rem);
+        }
+
+        .confirmation-card p {
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin: 1rem 0;
+        }
+
+        .confirmation-card .detail {
+            background: rgba(212, 175, 55, 0.08);
+            padding: 1rem 1.2rem;
+            border-radius: 14px;
+            margin: 1.5rem 0;
+            color: var(--text-primary);
+            text-align: left;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-chart-simple text-gold"></i>
+                Trustcore
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="confirmation-card">
+                <i class="fa-brands fa-paypal fa-3x text-gold"></i>
+                <h1>PayPal Payment Complete</h1>
+                <p id="confirmation-message">Thank you for your payment. Your booking has been processed successfully.
+                </p>
+                <div class="detail" id="confirmation-detail"></div>
+                <div class="confirmation-actions">
+                    <a href="services.html" class="btn btn-primary">Back to Services</a>
+                    <a href="contact.html" class="btn btn-secondary">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; margin-bottom: 0.5rem;">
+                Trustcore Bookkeeping</div>
+            <p>&copy; 2026 Trustcore Bookkeeping. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('status') || 'success';
+        const orderID = params.get('orderID');
+        const plan = params.get('plan');
+        const messageEl = document.getElementById('confirmation-message');
+        const detailEl = document.getElementById('confirmation-detail');
+
+        if (status === 'success') {
+            messageEl.textContent = 'Your PayPal payment was completed successfully.';
+            detailEl.innerHTML = `
+                <p><strong>Plan:</strong> ${plan ? plan : 'N/A'}</p>
+                <p><strong>PayPal Order ID:</strong> ${orderID ? orderID : 'Unavailable'}</p>
+                <p>We will follow up with next steps via email shortly.</p>
+            `;
+        } else {
+            messageEl.textContent = 'There was an issue completing your PayPal payment.';
+            detailEl.innerHTML = `
+                <p><strong>Status:</strong> ${status}</p>
+                <p><strong>Order ID:</strong> ${orderID ? orderID : 'Unavailable'}</p>
+                <p>Please contact us if you need help completing your payment.</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>

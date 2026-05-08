@@ -1,12 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Trustcore Bookkeeping</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: var(--border-glass);
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(212, 175, 55, 0.35);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.15);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 22px;
+            right: -36px;
+            background: var(--accent-gold);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            padding: 0.4rem 3rem;
+            transform: rotate(45deg);
+            font-family: var(--font-heading);
+        }
+
+        .pricing-tier-name {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .pricing-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gold);
+            margin: 1.5rem auto;
+            opacity: 0.5;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 0 0 2rem;
+            padding: 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            color: var(--text-secondary);
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.93rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            color: var(--accent-gold);
+            margin-top: 3px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .pricing-note {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            font-style: italic;
+            font-size: 0.95rem;
+            background: var(--bg-card);
+            border: var(--border-glass);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-note i {
+            color: var(--accent-gold);
+            margin-right: 0.5rem;
+        }
+    </style>
 </head>
+
 <body>
     <header class="header">
         <div class="container nav-container">
@@ -17,68 +148,210 @@
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="services.html">Services</a>
-                <a href="store.html">Store</a>
-                <a href="team.html">Team</a>
-                <a href="careers.html">Careers</a>
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contact</a>
-                <a href="blog.html">Blog</a>
-                <a href="bookkeeping-course.html">Course</a>
-                <a href="private-money-lending.html">Lending</a>
-                <a href="real-estate-loan-request.html">Real Estate</a>
             </nav>
         </div>
     </header>
 
+    <!-- Services Overview -->
     <section class="section" style="margin-top: 80px;">
         <div class="container">
             <div class="section-header gsap-fade-up">
                 <h2>Our <span class="text-gold">Services</span></h2>
-                <p>Comprehensive financial solutions tailored for your business.</p>
+                <p>Comprehensive bookkeeping solutions tailored for your business needs.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card gsap-fade-up">
+                    <div class="service-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <h3>Monthly Bookkeeping</h3>
+                    <p>Accurate, organized books updated monthly so your finances are always tax-ready and
+                        business-ready.</p>
+                </div>
+                <div class="service-card gsap-fade-up">
+                    <div class="service-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <h3>Bank Reconciliations</h3>
+                    <p>We reconcile all bank and credit card accounts to catch discrepancies and keep your records
+                        clean.</p>
+                </div>
+                <div class="service-card gsap-fade-up">
+                    <div class="service-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3>Financial Reporting</h3>
+                    <p>Monthly Profit &amp; Loss, Balance Sheet, and cash flow reports to give you a clear picture of
+                        your business.</p>
+                </div>
+                <div class="service-card gsap-fade-up">
+                    <div class="service-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <h3>Invoicing &amp; Expense Tracking</h3>
+                    <p>Full invoice management, bill tracking, and expense categorization to streamline your cash flow.
+                    </p>
+                </div>
+                <div class="service-card gsap-fade-up">
                     <div class="service-icon"><i class="fa-solid fa-book"></i></div>
                     <h3>QuickBooks Accounting</h3>
-                    <p>Complete setup, management, and optimization of your QuickBooks.</p>
+                    <p>Complete setup, management, and optimization of your QuickBooks platform for peak performance.
+                    </p>
                 </div>
                 <div class="service-card gsap-fade-up">
-                    <div class="service-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                    <h3>Tax Preparation</h3>
-                    <p>Stress-free tax season. Maximize your returns while staying compliant.</p>
-                </div>
-                <div class="service-card gsap-fade-up">
-                    <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3>Business Consulting</h3>
-                    <p>Strategic financial insights to help you scale.</p>
-                </div>
-                <div class="service-card gsap-fade-up">
-                    <div class="service-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                    <h3>Private Money Lending</h3>
-                    <p>Access capital quickly with our tailored lending solutions.</p>
-                </div>
-                <div class="service-card gsap-fade-up">
-                    <div class="service-icon"><i class="fa-solid fa-house-chimney"></i></div>
-                    <h3>Real Estate Loan Request</h3>
-                    <p>Get the financing you need for your real estate investments.</p>
-                </div>
-                <div class="service-card gsap-fade-up">
-                    <div class="service-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3>Bookkeeping Course</h3>
-                    <p>Learn the trade with our comprehensive training program.</p>
+                    <div class="service-icon"><i class="fa-solid fa-broom"></i></div>
+                    <h3>Bookkeeping Cleanup</h3>
+                    <p>Catch-up and cleanup services for overdue, missing, or disorganized financial records.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="section" style="background: rgba(10, 25, 47, 0.4);">
+        <div class="container">
+            <div class="section-header gsap-fade-up">
+                <h2>Bookkeeping <span class="text-gold">Packages</span></h2>
+                <p>Choose the plan that fits your business. All plans include monthly bookkeeping and dedicated support.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+
+                <!-- Silver -->
+                <div class="pricing-card gsap-fade-up">
+                    <div class="pricing-tier-name">Silver</div>
+                    <div class="pricing-price">$275<span>/month</span></div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i>Organize income and expense transactions</li>
+                        <li><i class="fa-solid fa-check"></i>Reconcile bank and credit card accounts</li>
+                        <li><i class="fa-solid fa-check"></i>Monthly bookkeeping reports</li>
+                    </ul>
+                    <button type="button" class="btn btn-secondary get-started-btn" data-plan="Silver"
+                        style="width:100%;text-align:center;display:block;">Get Started</button>
+                </div>
+
+                <!-- Gold -->
+                <div class="pricing-card featured gsap-fade-up">
+                    <div class="pricing-tier-name">Gold</div>
+                    <div class="pricing-price">$550<span>/month</span></div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i>Everything in Silver</li>
+                        <li><i class="fa-solid fa-check"></i>Profit &amp; Loss and Balance Sheet reports</li>
+                        <li><i class="fa-solid fa-check"></i>Accounts Payable &amp; Accounts Receivable tracking</li>
+                        <li><i class="fa-solid fa-check"></i>Monthly business review and support</li>
+                    </ul>
+                    <button type="button" class="btn btn-primary get-started-btn" data-plan="Gold"
+                        style="width:100%;text-align:center;display:block;border:none;">Get Started</button>
+                </div>
+
+                <!-- Platinum -->
+                <div class="pricing-card gsap-fade-up">
+                    <div class="pricing-tier-name">Platinum</div>
+                    <div class="pricing-price">$1,050<span>/month</span></div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i>Everything in Gold</li>
+                        <li><i class="fa-solid fa-check"></i>Full invoice and bill management</li>
+                        <li><i class="fa-solid fa-check"></i>Payment tracking and follow-ups</li>
+                        <li><i class="fa-solid fa-check"></i>Advanced financial reporting and monthly consulting</li>
+                    </ul>
+                    <button type="button" class="btn btn-secondary get-started-btn" data-plan="Platinum"
+                        style="width:100%;text-align:center;display:block;">Get Started</button>
+                </div>
+
+            </div>
+
+            <div class="pricing-note gsap-fade-up">
+                <i class="fa-solid fa-circle-info"></i>
+                Cleanup projects are priced separately based on the condition and volume of your books.
+            </div>
+
+            <section class="section" style="margin-top: 2.5rem;">
+                <div class="container">
+                    <div class="section-header gsap-fade-up">
+                        <h2>Accepted <span class="text-gold">Payment Options</span></h2>
+                        <p>Pay for your bookkeeping package using the method that works best for your business.</p>
+                    </div>
+                    <div class="payment-grid gsap-fade-up"
+                        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+                        <div class="payment-card"
+                            style="background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:1.8rem;text-align:center;">
+                            <i class="fa-solid fa-credit-card fa-2x text-gold"></i>
+                            <h3 style="margin:1rem 0 0.5rem;">Card Payments</h3>
+                            <p style="color:var(--text-secondary);font-size:0.95rem;">Secure credit/debit card payment
+                                through our Stripe checkout integration.</p>
+                        </div>
+                        <div class="payment-card"
+                            style="background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:1.8rem;text-align:center;">
+                            <i class="fa-solid fa-hand-holding-dollar fa-2x text-gold"></i>
+                            <h3 style="margin:1rem 0 0.5rem;">Zelle Transfer</h3>
+                            <p style="color:var(--text-secondary);font-size:0.95rem;">Fast bank-to-bank transfer via
+                                Zelle for same-day payment processing.</p>
+                        </div>
+                        <div class="payment-card"
+                            style="background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:1.8rem;text-align:center;">
+                            <i class="fa-brands fa-paypal fa-2x text-gold"></i>
+                            <h3 style="margin:1rem 0 0.5rem;">PayPal / Bank</h3>
+                            <p style="color:var(--text-secondary);font-size:0.95rem;">Pay with PayPal or a linked bank
+                                account for invoice settlement.</p>
+                        </div>
+                        <div class="payment-card"
+                            style="background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:1.8rem;text-align:center;">
+                            <i class="fa-solid fa-money-bill-transfer fa-2x text-gold"></i>
+                            <h3 style="margin:1rem 0 0.5rem;">ACH Payments</h3>
+                            <p style="color:var(--text-secondary);font-size:0.95rem;">Recurring or one-time ACH
+                                transfers available for business payments.</p>
+                        </div>
+                    </div>
+                    <div id="checkout-section" class="payment-checkout-card gsap-fade-up"
+                        style="margin-top:2rem;background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:2rem;">
+                        <h3 style="margin-bottom:0.75rem;">Secure Card Checkout</h3>
+                        <p style="color:var(--text-secondary);font-size:0.95rem;margin-bottom:1.25rem;">Use Stripe for
+                            secure credit/debit card payment processing. Choose your plan and proceed to payment
+                            instantly.</p>
+                        <form id="payment-form" style="display:flex;flex-direction:column;gap:1rem;max-width:420px;">
+                            <label for="plan-select" style="font-weight:700;color:var(--text-primary);">Select your
+                                bookkeeping package</label>
+                            <select id="plan-select" name="plan"
+                                style="padding:0.95rem;border:1px solid rgba(255,255,255,0.12);border-radius:12px;background:transparent;color:var(--text-primary);">
+                                <option value="Silver">Silver — $275 / month</option>
+                                <option value="Gold">Gold — $550 / month</option>
+                                <option value="Platinum">Platinum — $1,050 / month</option>
+                            </select>
+                            <button id="checkout-button" type="button" class="btn btn-primary"
+                                style="width:100%;max-width:260px;">Pay with Card</button>
+                            <div id="paypal-block" style="display:flex;flex-direction:column;gap:1rem;">
+                                <div id="paypal-button-container" style="max-width:460px;width:100%;"></div>
+                                <p id="paypal-status" style="color:var(--text-secondary);font-size:0.95rem;margin:0;">
+                                </p>
+                            </div>
+                            <p id="payment-status" style="color:var(--text-secondary);font-size:0.95rem;"></p>
+                        </form>
+                        <div style="margin-top:1.5rem;color:var(--text-secondary);font-size:0.95rem;line-height:1.7;">
+                            <strong>Other methods available:</strong> For Zelle, PayPal bank transfer, or ACH payment
+                            instructions, contact us and we will send a custom invoice or payment link.
+                        </div>
+                        <div style="margin-top:1.5rem;text-align:center;">
+                            <a href="contact.html" class="btn btn-secondary"
+                                style="max-width:260px;width:100%;display:inline-block;">Contact for Zelle / PayPal /
+                                ACH</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
-            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; margin-bottom: 0.5rem;">Trustcore Bookkeeping</div>
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; margin-bottom: 0.5rem;">
+                Trustcore Bookkeeping</div>
             <p>&copy; 2026 Trustcore Bookkeeping. All Rights Reserved.</p>
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="main.js"></script>
+    <script src="payment.js"></script>
+    <script src="paypal.js"></script>
 </body>
+
 </html>

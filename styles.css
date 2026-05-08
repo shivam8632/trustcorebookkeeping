@@ -10,10 +10,10 @@
   --accent-gold: #d4af37;
   --accent-gold-hover: #f1cf5b;
   --accent-blue: #64ffda;
-  
+
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
+
   --border-radius: 12px;
   --border-glass: 1px solid rgba(255, 255, 255, 0.1);
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -35,7 +35,12 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   color: var(--text-primary);
@@ -52,8 +57,13 @@ ul {
 }
 
 /* Typography Utility */
-.text-gold { color: var(--accent-gold); }
-.text-secondary { color: var(--text-secondary); }
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
 
 /* Layout Utilities */
 .container {
@@ -273,6 +283,75 @@ ul {
   flex-grow: 1;
 }
 
+.payment-grid .payment-card {
+  background: var(--bg-card);
+  border: var(--border-glass);
+  border-radius: var(--border-radius);
+  padding: 1.8rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.payment-grid .payment-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.payment-checkout-card {
+  max-width: 960px;
+  margin: 0 auto;
+  border: var(--border-glass);
+  background: rgba(10, 25, 47, 0.85);
+}
+
+#payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+#payment-form label {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+#payment-form select {
+  background: rgba(255, 255, 255, 0.06);
+  border: var(--border-glass);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 1rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  appearance: none;
+}
+
+#payment-form select:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+#paypal-button-container {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+#payment-status,
+#paypal-status {
+  min-height: 1.4rem;
+  font-size: 0.95rem;
+  margin-top: 0.35rem;
+}
+
+#payment-status.error,
+#paypal-status.error {
+  color: #ff6b6b;
+}
+
 /* Process Section */
 .process-timeline {
   position: relative;
@@ -446,24 +525,25 @@ footer p {
   .nav-links {
     display: none;
   }
-  
+
   .hero h1 {
     font-size: 2.5rem;
   }
-  
+
   .process-timeline::before {
     left: 25px;
   }
-  
-  .process-step, .process-step:nth-child(even) {
+
+  .process-step,
+  .process-step:nth-child(even) {
     flex-direction: row;
     justify-content: flex-end;
   }
-  
+
   .process-content {
     width: calc(100% - 70px);
   }
-  
+
   .process-number {
     left: 25px;
   }
