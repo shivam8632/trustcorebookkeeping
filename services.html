@@ -283,7 +283,8 @@
                             <i class="fa-solid fa-hand-holding-dollar fa-2x text-gold"></i>
                             <h3 style="margin:1rem 0 0.5rem;">Zelle Transfer</h3>
                             <p style="color:var(--text-secondary);font-size:0.95rem;">Send payment directly to
-                                <strong>206-697-4413</strong> via Zelle for same-day order confirmation.</p>
+                                <strong>206-697-4413</strong> via Zelle for same-day order confirmation.
+                            </p>
                         </div>
                         <div class="payment-card"
                             style="background: var(--bg-card);border: var(--border-glass);border-radius: var(--border-radius);padding:1.8rem;text-align:center;">
@@ -324,6 +325,58 @@
                             </div>
                             <p id="payment-status" style="color:var(--text-secondary);font-size:0.95rem;"></p>
                         </form>
+                        <div id="ach-payment-block" style="margin-top:2rem;display:grid;gap:1.5rem;">
+                            <div
+                                style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;">
+                                <h3 style="margin-bottom:1rem;">ACH Payment</h3>
+                                <p
+                                    style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+                                    Pay securely from your bank account. Choose manual bank entry or secure bank login
+                                    to complete your payment. Payments are non-refundable; future services may be
+                                    canceled with 30 days notice.</p>
+                                <div
+                                    style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+                                    <div
+                                        style="background: var(--bg-card);border: var(--border-glass);border-radius:14px;padding:1.2rem;">
+                                        <h4 style="margin-top:0;">Manual Bank Entry</h4>
+                                        <label for="ach-name"
+                                            style="font-weight:700;color:var(--text-primary);font-size:0.92rem;">Full
+                                            name</label>
+                                        <input id="ach-name" type="text" placeholder="Jane Doe"
+                                            style="width:100%;padding:0.9rem;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-primary);">
+                                        <label for="ach-email"
+                                            style="font-weight:700;color:var(--text-primary);font-size:0.92rem;">Email</label>
+                                        <input id="ach-email" type="email" placeholder="you@example.com"
+                                            style="width:100%;padding:0.9rem;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-primary);">
+                                        <label for="ach-routing"
+                                            style="font-weight:700;color:var(--text-primary);font-size:0.92rem;">Routing
+                                            number</label>
+                                        <input id="ach-routing" type="text" placeholder="125000024"
+                                            style="width:100%;padding:0.9rem;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-primary);">
+                                        <label for="ach-account"
+                                            style="font-weight:700;color:var(--text-primary);font-size:0.92rem;">Account
+                                            number</label>
+                                        <input id="ach-account" type="text" placeholder="138130811992"
+                                            style="width:100%;padding:0.9rem;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-primary);margin-bottom:1rem;">
+                                        <button id="ach-manual-button" type="button" class="btn btn-secondary"
+                                            style="width:100%;">Pay with ACH</button>
+                                    </div>
+                                    <div
+                                        style="background: var(--bg-card);border: var(--border-glass);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;justify-content:space-between;">
+                                        <div>
+                                            <h4 style="margin-top:0;">Secure Bank Login</h4>
+                                            <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;">
+                                                Connect your bank securely through Stripe to authorize ACH payment
+                                                without entering account details manually.</p>
+                                        </div>
+                                        <button id="ach-secure-button" type="button" class="btn btn-primary"
+                                            style="width:100%;">Connect Bank Securely</button>
+                                    </div>
+                                </div>
+                                <p id="ach-status"
+                                    style="color:var(--text-secondary);font-size:0.95rem;margin:0.75rem 0 0;"></p>
+                            </div>
+                        </div>
                         <div style="margin-top:1.5rem;color:var(--text-secondary);font-size:0.95rem;line-height:1.7;">
                             <strong>Other methods available:</strong> Use the PayPal button above for secure checkout,
                             or send a Zelle transfer to <strong>206-697-4413</strong> with your selected plan in the

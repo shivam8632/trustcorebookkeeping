@@ -135,22 +135,18 @@ app.post("/api/contact", formLimiter, async (req, res) => {
   const { name, email, phone, message } = req.body;
 
   if (!name || !email || !message) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "Name, email, and message are required.",
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Name, email, and message are required.",
+    });
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "Please provide a valid email address.",
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Please provide a valid email address.",
+    });
   }
 
   const sName = sanitise(name);
@@ -213,13 +209,11 @@ app.post("/api/contact", formLimiter, async (req, res) => {
     });
   } catch (err) {
     console.error("Contact email error:", err);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message:
-          "Failed to send message. Please email us directly at trustcorebookkeeping@gmail.com",
-      });
+    return res.status(500).json({
+      success: false,
+      message:
+        "Failed to send message. Please email us directly at trustcorebookkeeping@gmail.com",
+    });
   }
 });
 
@@ -235,12 +229,10 @@ app.post("/api/inquiry", formLimiter, async (req, res) => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "Please provide a valid email address.",
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Please provide a valid email address.",
+    });
   }
 
   const sName = sanitise(name);
@@ -316,26 +308,22 @@ app.post("/api/inquiry", formLimiter, async (req, res) => {
     });
   } catch (err) {
     console.error("Inquiry email error:", err);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message:
-          "Failed to send inquiry. Please email us directly at trustcorebookkeeping@gmail.com",
-      });
+    return res.status(500).json({
+      success: false,
+      message:
+        "Failed to send inquiry. Please email us directly at trustcorebookkeeping@gmail.com",
+    });
   }
 });
 
 // ── Stripe checkout configuration endpoint ─────────────────────────────────
 app.get("/config", (req, res) => {
   if (!process.env.STRIPE_PUBLISHABLE_KEY || !stripe) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message:
-          "Stripe is not configured. Set STRIPE_PUBLISHABLE_KEY and STRIPE_SECRET_KEY.",
-      });
+    return res.status(500).json({
+      success: false,
+      message:
+        "Stripe is not configured. Set STRIPE_PUBLISHABLE_KEY and STRIPE_SECRET_KEY.",
+    });
   }
   res.json({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
@@ -355,12 +343,10 @@ app.post("/api/create-checkout-session", formLimiter, async (req, res) => {
       .json({ success: false, message: "Please select a valid plan." });
   }
   if (!stripe) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "Payment processor is not configured.",
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Payment processor is not configured.",
+    });
   }
 
   const YOUR_DOMAIN = `${req.protocol}://${req.get("host")}`;
@@ -388,23 +374,19 @@ app.post("/api/create-checkout-session", formLimiter, async (req, res) => {
     res.json({ url: session.url });
   } catch (err) {
     console.error("Stripe checkout error:", err);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Unable to create Stripe checkout session.",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Unable to create Stripe checkout session.",
+    });
   }
 });
 
 app.get("/paypal-config", (req, res) => {
   if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_SECRET) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "PayPal credentials are not configured.",
-      });
+    return res.status(500).json({
+      success: false,
+      message: "PayPal credentials are not configured.",
+    });
   }
 
   res.json({
@@ -479,6 +461,163 @@ app.post("/api/capture-paypal-order", formLimiter, async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Unable to capture PayPal order." });
+  }
+});
+
+app.post("/api/create-ach-payment-intent", formLimiter, async (req, res) => {
+  const { plan, name, email } = req.body;
+  if (!plan || !planPrices[plan] || !name || !email) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Plan, name, and email are required." });
+  }
+
+  if (!stripe) {
+    return res
+      .status(500)
+      .json({
+        success: false,
+        message: "Payment processor is not configured.",
+      });
+  }
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: planPrices[plan],
+      currency: "usd",
+      payment_method_types: ["us_bank_account"],
+      metadata: { plan, name, email },
+    });
+
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err) {
+    console.error("ACH payment intent error:", err);
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Unable to create ACH payment intent.",
+      });
+  }
+});
+
+app.post(
+  "/api/create-ach-connection-session",
+  formLimiter,
+  async (req, res) => {
+    const { plan, name, email } = req.body;
+    if (!plan || !planPrices[plan] || !name || !email) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Plan, name, and email are required.",
+        });
+    }
+
+    if (!stripe) {
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message: "Payment processor is not configured.",
+        });
+    }
+
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: planPrices[plan],
+        currency: "usd",
+        payment_method_types: ["us_bank_account"],
+        payment_method_options: {
+          us_bank_account: {
+            financial_connections: {
+              permissions: ["payment_method"],
+            },
+          },
+        },
+        metadata: { plan, name, email },
+      });
+
+      const YOUR_DOMAIN = `${req.protocol}://${req.get("host")}`;
+      const session = await stripe.financialConnections.sessions.create({
+        account_holder: { type: "individual", email },
+        permissions: ["payment_method"],
+        return_url: `${YOUR_DOMAIN}/services.html?ach_session_id={SESSION_ID}&payment_intent_id=${paymentIntent.id}`,
+      });
+
+      res.json({ url: session.url });
+    } catch (err) {
+      console.error("ACH connection session error:", err);
+      res
+        .status(500)
+        .json({
+          success: false,
+          message: "Unable to create secure bank connection.",
+        });
+    }
+  },
+);
+
+app.post("/api/complete-ach-connection", formLimiter, async (req, res) => {
+  const { sessionId, paymentIntentId, name, email } = req.body;
+  if (!sessionId || !paymentIntentId || !name || !email) {
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Session ID, payment intent ID, name, and email are required.",
+      });
+  }
+
+  if (!stripe) {
+    return res
+      .status(500)
+      .json({
+        success: false,
+        message: "Payment processor is not configured.",
+      });
+  }
+
+  try {
+    const session = await stripe.financialConnections.sessions.retrieve(
+      sessionId,
+      {
+        expand: ["accounts"],
+      },
+    );
+    const connectedAccount = session.accounts?.data?.[0];
+
+    if (!connectedAccount) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "No connected bank account was returned.",
+        });
+    }
+
+    const paymentMethod = await stripe.paymentMethods.create({
+      type: "us_bank_account",
+      us_bank_account: {
+        financial_connections_account: connectedAccount.id,
+      },
+      billing_details: {
+        name,
+        email,
+      },
+    });
+
+    const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId, {
+      payment_method: paymentMethod.id,
+    });
+
+    res.json({ success: true, status: paymentIntent.status });
+  } catch (err) {
+    console.error("Complete ACH connection error:", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Unable to complete ACH payment." });
   }
 });
 
